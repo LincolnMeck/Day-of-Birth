@@ -62,11 +62,44 @@ public class DayOfBirth {
             }
         }
 
+        //day3为出生年与今年之间的年份有多少天，不包括出生年与今年，假设全部为平年
+        int day3 = 0;
+        if (year2-year1>0){
+            day3 = (year2-year1-1)*365;
+        }
+
+        int year3 = year1+1; //year3为出生年份的后一年
+        int year4 = year2-1; //year4为今年的前一年
+        int day4 = 0;  //day4为出生年与今年之间过的闰年数,不包括出生年与今年，如果有一年闰年，则+1天，没有则不变
+        while(year4>=year3){  //循环判断是否为闰年，当year4小于year3，则循环停止
+            int c = (year4%4==0 && year4%100!=0 || year4%400==0) ? day4++ : day4;
+            year4--;
+        }
+
+        //day5为出生年剩余的天数
+        int day5=0;
+        if(year1%4==0 && year1%100!=0 || year1%400==0){
+            day5 = 366-(a.get(Calendar.DAY_OF_YEAR));
+        }else{
+            day5 = 365-(a.get(Calendar.DAY_OF_YEAR));
+        }
+
+        int DAY1; //DAY1为如果出生年为今年的话，过了多少天
+        int DAY2; //DAY2为如果出生年不是今年的话，过了多少天
+        if (year1==year2){
+            DAY1 = b.get(Calendar.DAY_OF_YEAR) - a.get(Calendar.DAY_OF_YEAR) +1;
+            DAY2 = 0;
+        }else{
+            DAY1 = 0;
+            DAY2 = day5 + b.get(Calendar.DAY_OF_YEAR) + day3 +day4 +1;
+        }
+
         //汇总输出
         System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(name+"，"+age+"岁");
-        System.out.println("生于"+year1+"年"+month1+"月"+day1+"日，星期"+ (dayweek-1 == 0 ? "日" : dayweek-1) );
+        System.out.println("出生于"+year1+"年"+month1+"月"+day1+"日，星期"+ (dayweek-1 == 0 ? "日" : dayweek-1) );
         System.out.println("今天是"+year2+"年"+month2+"月"+day2+"日，星期"+ (dayweek2-1 == 0 ? "日" : dayweek2-1) );
+        System.out.println("已来到地球"+ ( DAY1 +DAY2 ) +"天！！~~~~");
     }
 
 }
