@@ -1,5 +1,4 @@
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.GregorianCalendar;
 
@@ -28,15 +27,37 @@ public class DayOfBirth {
         int day2 = b.get(Calendar.DAY_OF_MONTH);
         int dayweek2 = b.get(Calendar.DAY_OF_WEEK);//输出为1-7，分别为：日一二三四五六
 
+        //如果出生年大于今年，输出错误提示
+        if (year1>year2){
+            throw new IllegalYearException("年份输入错误！");
+        }
+
+        //如果月份大于12或小于1，输出错误提示
+        if (month1>12 || month1<1){
+            throw new IllegalMonthException("月份输入错误！");
+        }
+
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(name+"，生于"+year1+"年"+month1+"月"+day1+"日，星期"+ (dayweek-1 == 0 ? "日" : dayweek-1) );
         System.out.println("今天是"+year2+"年"+month2+"月"+day2+"日，星期"+ (dayweek2-1 == 0 ? "日" : dayweek2-1) );
     }
 
-    public static void printDate(Calendar b){ //打印今天的日期
-
-
-    }
-
 }
 
+//出生年份大于今年年份时报错
+class IllegalYearException extends RuntimeException{ //非法年份错误
+    public IllegalYearException(){
+    }
+    public IllegalYearException(String msg){
+        super(msg);
+    }
+}
+
+//月份输入错误时报错
+class IllegalMonthException extends RuntimeException{ //非法月份错误
+    public IllegalMonthException(){
+    }
+    public IllegalMonthException(String msg){
+        super(msg);
+    }
+}
