@@ -32,6 +32,9 @@ public class DayOfBirth {
             throw new IllegalException("年份输入错误！");
         }
 
+        //年龄
+        int age = year2 - year1;
+
         //如果月份大于12或小于1，输出错误提示
         if (month1>12 || month1<1){
             throw new IllegalException("月份输入错误！");
@@ -59,11 +62,10 @@ public class DayOfBirth {
             }
         }
 
-        System.out.println(a.get(Calendar.DAY_OF_YEAR));
-
         //汇总输出
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println(name+"，生于"+year1+"年"+month1+"月"+day1+"日，星期"+ (dayweek-1 == 0 ? "日" : dayweek-1) );
+        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(name+"，"+age+"岁");
+        System.out.println("生于"+year1+"年"+month1+"月"+day1+"日，星期"+ (dayweek-1 == 0 ? "日" : dayweek-1) );
         System.out.println("今天是"+year2+"年"+month2+"月"+day2+"日，星期"+ (dayweek2-1 == 0 ? "日" : dayweek2-1) );
     }
 
