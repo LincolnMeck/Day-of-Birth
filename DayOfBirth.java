@@ -33,7 +33,7 @@ public class DayOfBirth {
         System.out.println("今天是"+year2+"年"+month2+"月"+day2+"日，星期"+ (dayweek2-1 == 0 ? "日" : dayweek2-1) );
     }
 
-    public static void printDate(Calendar b){ //打印今天的日期 11111
+    public static void printDate(Calendar b){ //打印今天的日期
 
 
     }
