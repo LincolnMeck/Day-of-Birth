@@ -29,14 +29,39 @@ public class DayOfBirth {
 
         //如果出生年大于今年，输出错误提示
         if (year1>year2){
-            throw new IllegalYearException("年份输入错误！");
+            throw new IllegalException("年份输入错误！");
         }
 
         //如果月份大于12或小于1，输出错误提示
         if (month1>12 || month1<1){
-            throw new IllegalMonthException("月份输入错误！");
+            throw new IllegalException("月份输入错误！");
         }
 
+        //不同月份的日期不同
+        //如果为1、3、5、7、8、10、12月，则大于31号或小于1号提示错误
+        if(month1==1 || month1==3 || month1==5 || month1==7 || month1==8 || month1==10 || month1==12){
+            if (day1>31 || day1<1){
+                throw new IllegalException("号数输入错误！");
+            }
+        } else if(month1==4 || month1==6 || month1==9 || month1==11){ //如果为4、6、9、11月，则大于30号或小于1号提示异常
+            if (day1>30 || day1<1){
+                throw new IllegalException("号数输入错误！");
+            }
+        }else if (month1==2){   //如果为2月，则先判断是不是闰年，如果是，则大于29号或小于1号提示异常；如果不是，则大于28号或小于1号提示异常
+            if (year1%4==0 && year1%100!=0 || year1%400==0){ //闰年条件：年数可以被4整除而不能被100整除，但可被400整除
+                if (day1>29 || day1<1){
+                    throw new IllegalException("号数输入错误！");
+                }
+            }else{
+                if (day1>28 || day1<1){
+                    throw new IllegalException("号数输入错误！");
+                }
+            }
+        }
+
+        System.out.println(a.get(Calendar.DAY_OF_YEAR));
+
+        //汇总输出
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(name+"，生于"+year1+"年"+month1+"月"+day1+"日，星期"+ (dayweek-1 == 0 ? "日" : dayweek-1) );
         System.out.println("今天是"+year2+"年"+month2+"月"+day2+"日，星期"+ (dayweek2-1 == 0 ? "日" : dayweek2-1) );
@@ -44,20 +69,12 @@ public class DayOfBirth {
 
 }
 
-//出生年份大于今年年份时报错
-class IllegalYearException extends RuntimeException{ //非法年份错误
-    public IllegalYearException(){
+//报错方法
+class IllegalException extends RuntimeException{ //非法错误
+    public IllegalException(){
     }
-    public IllegalYearException(String msg){
+    public IllegalException(String msg){
         super(msg);
     }
 }
 
-//月份输入错误时报错
-class IllegalMonthException extends RuntimeException{ //非法月份错误
-    public IllegalMonthException(){
-    }
-    public IllegalMonthException(String msg){
-        super(msg);
-    }
-}
